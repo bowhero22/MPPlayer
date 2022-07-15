@@ -12,7 +12,8 @@ public class MainLayoutController {
 
     @FXML
     protected void start() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("MainLayout.fxml"));
-        MainApplication.scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("PlayerLayout.fxml"));
+        Scene newScene = new Scene(fxmlLoader.load());
+        MainApplication.stage.setScene(newScene);
     }
 }
