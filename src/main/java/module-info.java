@@ -12,4 +12,6 @@ module com.bowhero22.mpplayer {
 
     opens com.bowhero22.mpplayer to javafx.fxml;
     exports com.bowhero22.mpplayer;
+    exports com.bowhero22.mpplayer.controllers;
+    opens com.bowhero22.mpplayer.controllers to javafx.fxml;
 }
