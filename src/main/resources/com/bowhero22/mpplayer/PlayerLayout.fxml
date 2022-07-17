@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="645.0" styleClass="panel-primary" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController">
+   <children>
+      <MenuBar layoutY="-1.0" prefHeight="28.0" prefWidth="645.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Close" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Save playlist" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Open new MP3 file" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Play from youtube" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Play from spotify" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Open playlist" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-default" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ProgressBar fx:id="musicProgresszBar" layoutX="10.0" layoutY="339.0" prefHeight="18.0" prefWidth="625.0" progress="0.0" styleClass="progress-bar-primary" />
+      <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="364.0" prefHeight="22.0" prefWidth="625.0" spacing="100.0">
+         <children>
+            <Button mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-default" />
+               </styleClass></Button>
+            <Button mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-default" />
+               </styleClass></Button>
+            <Button mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-default" />
+               </styleClass></Button>
+            <Button mnemonicParsing="false">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-default" />
+               </styleClass></Button>
+         </children>
+      </HBox>
+      <VBox layoutX="10.0" layoutY="27.0" prefHeight="305.0" prefWidth="580.0" spacing="25.0">
+         <children>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="fileFormat_lbl" text="File format : " visible="false" />
+                  <Label fx:id="fileFormatInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="track_lbl" text="Track : " visible="false" />
+                  <Label fx:id="trackInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="artist_lbl" text="Artist : " visible="false" />
+                  <Label fx:id="artistInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="title_lbl" text="Title : " visible="false" />
+                  <Label fx:id="titleInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="album_lbl" text="Album : " visible="false" />
+                  <Label fx:id="albumInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="year_lbl" text="Year : " visible="false" />
+                  <Label fx:id="yearInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="genre_lbl" text="Genre : " visible="false" />
+                  <Label fx:id="genreInfo_lbl" />
+               </children>
+            </HBox>
+            <HBox prefHeight="12.0" prefWidth="580.0">
+               <children>
+                  <Label fx:id="comment_lbl" text="Comment : " visible="false" />
+                  <Label fx:id="commentInfo_lbl" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
