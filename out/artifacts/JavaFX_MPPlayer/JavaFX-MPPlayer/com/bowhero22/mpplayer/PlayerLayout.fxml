@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="panel-primary" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Close" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Save playlist" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Open new MP3 file" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Play from youtube" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Play from spotify" />
+                  <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Open playlist" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" styleClass="split-menu-btn-primary" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ProgressBar layoutX="10.0" layoutY="342.0" prefHeight="18.0" prefWidth="580.0" progress="0.0" />
+      <Button layoutX="274.0" layoutY="364.0" mnemonicParsing="false" text="">
+       <graphic>
+           <FontIcon iconLiteral="antf-play-circle"/>
+       </graphic>
+       </Button>
+   </children>
+</AnchorPane>
