@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="645.0" styleClass="panel-primary" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController">
    <children>
@@ -30,7 +31,6 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ProgressBar fx:id="musicProgresszBar" layoutX="10.0" layoutY="339.0" prefHeight="18.0" prefWidth="625.0" progress="0.0" styleClass="progress-bar-primary" />
       <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="364.0" prefHeight="22.0" prefWidth="625.0" spacing="100.0">
          <children>
             <Button mnemonicParsing="false">
@@ -55,57 +55,36 @@
                </styleClass></Button>
          </children>
       </HBox>
-      <VBox layoutX="10.0" layoutY="27.0" prefHeight="305.0" prefWidth="580.0" spacing="25.0">
+      <Slider layoutX="10.0" layoutY="332.0" prefHeight="14.0" prefWidth="625.0" />
+      <HBox layoutX="10.0" layoutY="27.0" prefHeight="298.0" prefWidth="625.0">
          <children>
-            <HBox prefHeight="12.0" prefWidth="580.0">
+            <VBox prefHeight="298.0" prefWidth="150.0">
                <children>
-                  <Label fx:id="fileFormat_lbl" text="File format : " visible="false" />
-                  <Label fx:id="fileFormatInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
+                  <HBox prefHeight="10.0" prefWidth="160.0">
+                     <children>
+                        <Label text="My Libraries">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Label>
+                        <Separator prefHeight="14.0" prefWidth="81.0" />
+                     </children>
+                  </HBox>
+                  <TreeView fx:id="libraryTreeView" prefHeight="285.0" prefWidth="160.0" />
+               </children></VBox>
+             <VBox prefHeight="291.0" prefWidth="341.0">
+                 <children>
+                  <Separator prefHeight="20.0" prefWidth="332.0" />
+                     <TreeView prefHeight="250.0" prefWidth="332.0" />
+                     <Pagination fx:id="musicLibPagination" prefHeight="40.0" prefWidth="341.0" />
+                 </children>
+             </VBox>
+            <VBox prefHeight="298.0" prefWidth="160.0">
                <children>
-                  <Label fx:id="track_lbl" text="Track : " visible="false" />
-                  <Label fx:id="trackInfo_lbl" />
+                  <Separator prefHeight="26.0" prefWidth="152.0" />
+                  <TreeView fx:id="musicInfoTreeView" prefHeight="296.0" prefWidth="152.0" />
                </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="artist_lbl" text="Artist : " visible="false" />
-                  <Label fx:id="artistInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="title_lbl" text="Title : " visible="false" />
-                  <Label fx:id="titleInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="album_lbl" text="Album : " visible="false" />
-                  <Label fx:id="albumInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="year_lbl" text="Year : " visible="false" />
-                  <Label fx:id="yearInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="genre_lbl" text="Genre : " visible="false" />
-                  <Label fx:id="genreInfo_lbl" />
-               </children>
-            </HBox>
-            <HBox prefHeight="12.0" prefWidth="580.0">
-               <children>
-                  <Label fx:id="comment_lbl" text="Comment : " visible="false" />
-                  <Label fx:id="commentInfo_lbl" />
-               </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
