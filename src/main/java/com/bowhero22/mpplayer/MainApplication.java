@@ -20,6 +20,7 @@ public class MainApplication extends Application {
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setTitle("MPPlayer");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
         MainApplication.stage = stage;
