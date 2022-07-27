@@ -69,7 +69,7 @@
                         <Separator prefHeight="14.0" prefWidth="81.0" />
                      </children>
                   </HBox>
-                  <VBox fx:id="artistTreeView" prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <TreeView fx:id="artistTreeView" prefHeight="285.0" prefWidth="160.0" />
                      </children>
@@ -80,7 +80,7 @@
              <VBox prefHeight="291.0" prefWidth="341.0">
                  <children>
                   <Separator prefHeight="20.0" prefWidth="332.0" />
-                     <TreeView prefHeight="250.0" prefWidth="332.0" />
+                  <ListView fx:id="libraryListView" prefHeight="250.0" prefWidth="332.0" />
                      <Pagination fx:id="musicLibPagination" prefHeight="40.0" prefWidth="341.0" />
                  </children>
              </VBox>
