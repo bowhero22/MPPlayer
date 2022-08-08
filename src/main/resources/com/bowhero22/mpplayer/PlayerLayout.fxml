@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="645.0" styleClass="panel-primary" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController">
+<AnchorPane prefHeight="400.0" prefWidth="645.0" styleClass="panel-primary" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bowhero22.mpplayer.controllers.PlayerLayoutController">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="28.0" prefWidth="645.0">
         <menus>
@@ -44,22 +33,22 @@
       </MenuBar>
       <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="364.0" prefHeight="22.0" prefWidth="625.0" spacing="100.0">
          <children>
-            <Button mnemonicParsing="false">
+            <Button fx:id="playRandomBtn" mnemonicParsing="false" text="🔀">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-default" />
                </styleClass></Button>
-            <Button mnemonicParsing="false">
+            <Button fx:id="previousBtn" mnemonicParsing="false" text="⬅">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-default" />
                </styleClass></Button>
-            <Button mnemonicParsing="false">
+            <Button fx:id="playBtn" mnemonicParsing="false" text="▶">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-default" />
                </styleClass></Button>
-            <Button mnemonicParsing="false">
+            <Button fx:id="nextBtn" mnemonicParsing="false" text="➡">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-default" />
@@ -91,8 +80,7 @@
              <VBox fx:id="musicLibVBox" prefHeight="291.0" prefWidth="341.0">
                  <children>
                   <Separator prefHeight="20.0" prefWidth="332.0" />
-                  <ListView fx:id="musicLibListView" prefHeight="250.0" prefWidth="200.0" />
-                     <Pagination fx:id="musicLibPagination" prefHeight="40.0" prefWidth="341.0" />
+                  <ListView fx:id="musicLibListView" prefHeight="290.0" prefWidth="332.0" />
                  </children>
              </VBox>
             <VBox prefHeight="298.0" prefWidth="160.0">

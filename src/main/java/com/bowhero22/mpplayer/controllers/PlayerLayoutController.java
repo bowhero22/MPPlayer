@@ -1,25 +1,16 @@
 package com.bowhero22.mpplayer.controllers;
 
-
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
 public class PlayerLayoutController implements Initializable {
@@ -38,13 +29,22 @@ public class PlayerLayoutController implements Initializable {
     private TreeView<String> musicInfoTreeView;
 
     @FXML
-    private ListView<File> musicLibListView;
-
-    @FXML
-    private Pagination musicLibPagination;
+    private ListView<Object> musicLibListView;
 
     @FXML
     private VBox musicLibVBox;
+
+    @FXML
+    private Button nextBtn;
+
+    @FXML
+    private Button playBtn;
+
+    @FXML
+    private Button playRandomBtn;
+
+    @FXML
+    private Button previousBtn;
 
     public static ImageView[] albumImageView;
 
@@ -61,11 +61,16 @@ public class PlayerLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        nextBtn.setDisable(true);
+        playBtn.setDisable(true);
+        playRandomBtn.setDisable(true);
+        previousBtn.setDisable(true);
+
         //TO-DO: Create new icon and apply icon to tree view.
         artistImageView = createNewImageView(50, 50, 512, null);
         albumImageView = createNewImageView(50, 50, 512, null);
         genreImageView = createNewImageView(50, 50, 512, null);
-        generalImageView = createNewImageView(50,50,512,null);
+        generalImageView = createNewImageView(50, 50, 512, null);
 
         artistRoot = new TreeItem<>("Artist", albumImageView[0]);
         albumRoot = new TreeItem<>("Album", artistImageView[0]);
@@ -83,27 +88,39 @@ public class PlayerLayoutController implements Initializable {
         albumRoot.getChildren().add(noItem);
         genreRoot.getChildren().add(noItem);
 
-        musicLibVBox.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                event.acceptTransferModes(TransferMode.ANY);
-                if(event.getGestureSource() != musicLibVBox && !event.getDragboard().equals(null)) {
-                    Dragboard db = event.getDragboard();
-                    if (event.getDragboard().hasFiles()) {
-                        ObservableList<File> curListView = musicLibListView.getItems();
-                        curListView.addAll(db.getFiles());
-                        musicLibListView.setItems(curListView);
-                    } else if (event.getDragboard().hasUrl()) {
-                        ObservableList<File> curListView = musicLibListView.getItems();
-                        curListView.addAll(db.getFiles());
-                        musicLibListView.setItems(curListView);
-                    }
-                    if(event.isDropCompleted()) {
-                        event.setDropCompleted(true);
-                    }
-                }
 
+        //Drag-and-Drop settings(initialization)
+        musicLibVBox.setOnDragOver((DragEvent event)
+                -> {
+            if (event.getGestureSource() != musicLibVBox
+                    && (event.getDragboard().hasUrl()) || event.getDragboard().hasString() || event.getDragboard().hasFiles()) {
+                event.acceptTransferModes(TransferMode.ANY);
             }
+            event.consume();
+        });
+
+        musicLibVBox.setOnDragDropped((DragEvent event)
+                -> {
+            event.acceptTransferModes(TransferMode.ANY);
+            Dragboard db = event.getDragboard();
+
+            ObservableList<Object> curListView = musicLibListView.getItems();
+
+            boolean success = false;
+
+            if (event.getDragboard().hasFiles()) {
+                db.getFiles().forEach(f -> curListView.add((String) f.getName()));
+                musicLibListView.setItems(curListView);
+
+                success = true;
+            } else if (event.getDragboard().hasUrl() && event.getDragboard().getUrl().startsWith("https://www.youtube.com")) {
+                curListView.add((String) db.getUrl());
+                musicLibListView.setItems(curListView);
+
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
         });
     }
 
@@ -111,8 +128,8 @@ public class PlayerLayoutController implements Initializable {
         Boolean noIcon = icon == null;
 
         ImageView[] imageView = new ImageView[arrsize];
-        for(ImageView i : imageView) {
-            if(noIcon) {
+        for (ImageView i : imageView) {
+            if (noIcon) {
                 i = new ImageView();
             } else {
                 i = new ImageView(icon);
