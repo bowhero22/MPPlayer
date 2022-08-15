@@ -1,17 +1,25 @@
 package com.bowhero22.mpplayer.controllers;
 
+import com.bowhero22.mpplayer.util.MediaManager;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
+
 import java.net.URL;
+import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 public class PlayerLayoutController implements Initializable {
 
@@ -29,7 +37,7 @@ public class PlayerLayoutController implements Initializable {
     private TreeView<String> musicInfoTreeView;
 
     @FXML
-    private ListView<Object> musicLibListView;
+    private ListView<String> musicLibListView;
 
     @FXML
     private VBox musicLibVBox;
@@ -46,6 +54,15 @@ public class PlayerLayoutController implements Initializable {
     @FXML
     private Button previousBtn;
 
+    private final String linuxMFile = "^(/[^/ ]*)+/?$";
+
+    private final String winMP3File = "^[0-9]{3}x[0-9]{3}.mp3$";
+    private final String winWAVFile = "^[0-9]{3}x[0-9]{3}.wav$";
+
+    private MediaManager mediaManager  = new MediaManager();
+
+    private int curIndex;
+
     public static ImageView[] albumImageView;
 
     public static ImageView[] artistImageView;
@@ -61,10 +78,57 @@ public class PlayerLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nextBtn.setDisable(true);
-        playBtn.setDisable(true);
-        playRandomBtn.setDisable(true);
-        previousBtn.setDisable(true);
+        curIndex = 0;
+
+        /**
+         *         nextBtn.setDisable(true);
+         *         playBtn.setDisable(true);
+         *         playRandomBtn.setDisable(true);
+         *         previousBtn.setDisable(true);
+         */
+
+        musicLibListView.setEditable(true);
+        musicLibListView.setCellFactory(TextFieldListCell.forListView());
+
+        nextBtn.setOnAction((ActionEvent) -> {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    curIndex++;
+
+                    playMedia();
+                }
+            });
+        });
+
+        playBtn.setOnAction((ActionEvent) -> {
+            new Thread(() -> {
+                playMedia();
+
+                mediaManager.getMediaPlayer().setOnEndOfMedia(() -> {
+                    if(musicLibListView.getItems().size() <= curIndex) {
+                        curIndex = 0;
+                    } else {
+                        curIndex++;
+                    }
+                    playMedia();
+                });
+            }).start();
+        });
+
+        playRandomBtn.setOnAction((ActionEvent) -> {
+            Random rand = new Random(System.currentTimeMillis() * 10000);
+            long r = rand.nextLong(0, musicLibListView.getItems().size());
+
+            playMedia();
+        });
+
+        previousBtn.setOnAction((ActionEvent) -> {
+            curIndex--;
+
+            playMedia();
+        });
+
 
         //TO-DO: Create new icon and apply icon to tree view.
         artistImageView = createNewImageView(50, 50, 512, null);
@@ -94,7 +158,7 @@ public class PlayerLayoutController implements Initializable {
                 -> {
             if (event.getGestureSource() != musicLibVBox
                     && (event.getDragboard().hasUrl()) || event.getDragboard().hasString() || event.getDragboard().hasFiles()) {
-                event.acceptTransferModes(TransferMode.ANY);
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
             event.consume();
         });
@@ -104,12 +168,22 @@ public class PlayerLayoutController implements Initializable {
             event.acceptTransferModes(TransferMode.ANY);
             Dragboard db = event.getDragboard();
 
-            ObservableList<Object> curListView = musicLibListView.getItems();
+            ObservableList<String> curListView = musicLibListView.getItems();
 
             boolean success = false;
 
-            if (event.getDragboard().hasFiles()) {
-                db.getFiles().forEach(f -> curListView.add((String) f.getName()));
+            AtomicBoolean isMusicFile = new AtomicBoolean(false);
+
+            event.getDragboard().getFiles().forEach(f -> {
+                if(f.getAbsolutePath().matches(linuxMFile) || f.getAbsolutePath().matches(winMP3File) || f.getAbsolutePath().matches(winWAVFile)) {
+                    isMusicFile.set(true);
+                } else {
+                    isMusicFile.set(false);
+                }
+            });
+
+            if (event.getDragboard().hasFiles() && isMusicFile.get()) {
+                db.getFiles().forEach(f -> curListView.add((String) f.getAbsolutePath()));
                 musicLibListView.setItems(curListView);
 
                 success = true;
@@ -139,5 +213,15 @@ public class PlayerLayoutController implements Initializable {
         }
 
         return imageView;
+    }
+
+    //Plays media with current index.
+    private void playMedia() {
+        mediaManager.play(
+                (String) musicLibListView.getItems()
+                .stream()
+                .map(object -> Objects.toString(object, null))
+                .collect(Collectors.toList())
+                .get(curIndex));
     }
 }
