@@ -10,6 +10,7 @@ module com.bowhero22.mpplayer {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires jdk.unsupported;
 
     opens com.bowhero22.mpplayer to javafx.fxml;
     exports com.bowhero22.mpplayer;
